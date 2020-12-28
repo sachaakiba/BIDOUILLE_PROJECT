@@ -1,3 +1,4 @@
+import 'package:bidouilleP5/pageAuth/login.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -75,6 +76,17 @@ class _RegisterState extends State<Register> {
                 },
                 color: Colors.amber,
                 child: Text('Register'),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0)),
+              ),
+              OutlineButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Login()));
+                },
+                borderSide: BorderSide(width: 1.0, color: Colors.black),
+                color: Colors.amber,
+                child: Text('Already have an account ?'),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
               )

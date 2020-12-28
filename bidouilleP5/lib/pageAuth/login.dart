@@ -1,3 +1,4 @@
+import 'package:bidouilleP5/pageAuth/register.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -13,6 +14,21 @@ class _LoginState extends State<Login> {
 
     final _keyForm = GlobalKey<FormState>();
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Register()),
+            );
+          },
+        ),
+      ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
         child: Form(
@@ -32,7 +48,7 @@ class _LoginState extends State<Login> {
               SizedBox(height: 10.0),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'email',
+                  labelText: 'Email',
                   border: OutlineInputBorder(),
                 ),
                 validator: (val) => val.isEmpty ? 'Enter an email' : null,
@@ -41,7 +57,7 @@ class _LoginState extends State<Login> {
               SizedBox(height: 10.0),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'password',
+                  labelText: 'Password',
                   border: OutlineInputBorder(),
                 ),
                 validator: (val) => val.length < 6
@@ -57,14 +73,6 @@ class _LoginState extends State<Login> {
                 },
                 color: Colors.amber,
                 child: Text('Login'),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-              ),
-              OutlineButton(
-                onPressed: () {},
-                borderSide: BorderSide(width: 1.0, color: Colors.black),
-                color: Colors.amber,
-                child: Text('Already have an account ?'),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
               )

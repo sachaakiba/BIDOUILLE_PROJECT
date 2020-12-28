@@ -1,4 +1,3 @@
-import 'package:bidouilleP5/pageAuth/login.dart';
 import 'package:bidouilleP5/pageAuth/register.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Login(),
+      home: Register(),
     );
   }
 }
