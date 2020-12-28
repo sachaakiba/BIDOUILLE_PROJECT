@@ -77,14 +77,7 @@ class _RegisterState extends State<Register> {
                 child: Text('Register'),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
-              ),
-              OutlineButton(
-                onPressed: () {},
-                borderSide: BorderSide(width: 1.0, color: Colors.black),
-                child: Text('Need an new account ?'),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-              ),
+              )
             ],
           ),
         ),
