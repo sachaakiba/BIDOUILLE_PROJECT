@@ -1,5 +1,7 @@
 import 'package:bidouilleP5/pageAuth/login.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -7,6 +9,12 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseUser currentUtil;
+
+  final CollectionReference collectionUtil =
+      Firestore.instance.collection('users');
+
   String name = '';
   String email = '';
   String password = '';
@@ -16,6 +24,20 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.currentUser().then((FirebaseUser util) {
+      setState(() {
+        this.currentUtil = util;
+      });
+    });
+
+    String _idUtil() {
+      if (currentUtil != null) {
+        return currentUtil.uid;
+      } else {
+        return "no current util";
+      }
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
@@ -69,9 +91,23 @@ class _RegisterState extends State<Register> {
                 obscureText: true,
               ),
               FlatButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    print('ok');
+                    AuthResult res = await _auth.createUserWithEmailAndPassword(
+                        email: email, password: password);
+                    await collectionUtil.document(_idUtil()).setData({
+                      'idUtil': _idUtil(),
+                      'name': name,
+                      'email': email,
+                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+
+                    if (res == null) {
+                      print("Error");
+                    }
                   }
                 },
                 color: Colors.amber,

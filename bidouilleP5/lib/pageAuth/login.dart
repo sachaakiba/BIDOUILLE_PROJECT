@@ -1,5 +1,7 @@
+import 'package:bidouilleP5/pageAuth/home.dart';
 import 'package:bidouilleP5/pageAuth/register.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -7,6 +9,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     String email = '';
@@ -66,9 +70,17 @@ class _LoginState extends State<Login> {
                 onChanged: (val) => password = val,
               ),
               FlatButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_keyForm.currentState.validate()) {
-                    print('ok');
+                    AuthResult res = await _auth.signInWithEmailAndPassword(
+                        email: email, password: password);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
+                    if (res == null) {
+                      Text("This information are bad");
+                    }
                   }
                 },
                 color: Colors.amber,
